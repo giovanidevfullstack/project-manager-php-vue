@@ -15,13 +15,30 @@ class QueryBuilder
 
     public function insert(string $table, array $data)
     {
-        $this->sql = "INSERT INTO `{$table}` (`name`, `email`, `password`) VALUES (?,?,?)";
+        $sql = "INSERT INTO `{$table}` (%s) VALUES (%s)";
+
+        $columns = array_keys($data);
+        $values = array_fill(0, count($columns), '?');
+        $this->bind = array_values($data);
+
+        $this->sql = sprintf($sql, implode(', ', $columns), implode(', ', $values));
+
         return $this;
     }
 
     public function update(string $table, array $data)
     {
-        $this->sql = "UPDATE `{$table}` name=?, email=?";
+        $sql = "UPDATE `{$table}` SET %s";
+
+        $columns = array_keys($data);
+        
+        foreach ($columns as &$column) {
+            $column = $column . '=?'; // name=?            
+        }
+
+        $this->bind = array_values($data);
+        $this->sql = sprintf($sql, implode(', ', $columns));
+
         return $this;
     }
 
@@ -32,12 +49,36 @@ class QueryBuilder
     }
 
     public function where(array $conditions)
-    {
+    {   
+        if ($conditions == []) {
+            return $this;
+        }
+
+        if (!$this->sql){
+            throw new \Exception("select, update or delete is required before the where condition!");
+        } 
+
+        $columns = array_keys($conditions);
         
+        foreach ($columns as &$column) {
+            $column = $column . '=?'; // name=?            
+        }
+
+        $this->bind = array_merge($this->bind, array_values($conditions));
+        $this->sql .= ' WHERE ' . implode(' and ', $columns);
+
+        return $this;
     }
 
     public function getData() :\stdClass
     {
+        $query = new \stdClass; //classe sem tipo
+        $query->sql = $this->sql;
+        $query->bind = $this->bind;
 
+        $this->sql = null;
+        $this->bind = [];
+
+        return $query;
     }
 }

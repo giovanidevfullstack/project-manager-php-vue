@@ -15,7 +15,8 @@ class UsersController
     public function show($container, $request)
     {
         $user = new Users($container);     
-        return $user->get($request->attributes->get(1));
+        $id = $request->attributes->get(1);
+        return $user->get(['id' => $id]);
     }
     
     public function create($container, $request)
@@ -26,13 +27,15 @@ class UsersController
 
     public function update($container, $request)
     {
-        $user = new Users($container);     
-        return $user->update($request->attributes->get(1), $request->request->all());
+        $user = new Users($container);          
+        $id = $request->attributes->get(1);   
+        return $user->update(['id' => $id], $request->request->all());
     }
 
     public function delete($container, $request)
     {
         $user = new Users($container);     
-        return $user->delete($request->attributes->get(1));
+        $id = $request->attributes->get(1);
+        return $user->delete(['id' => $id]);
     }
 }
