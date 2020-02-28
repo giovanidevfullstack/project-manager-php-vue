@@ -1,0 +1,26 @@
+{
+    "name": "gaz/pm-framework",
+    "authors": [
+        {
+            "name": "Giovani Souza",
+            "email": "shark.tec@hotmail.com"
+        }
+    ],
+    "require": {
+        "pimple/pimple": "^3.2",
+        "symfony/http-foundation": "^5.0",
+        "zendframework/zend-eventmanager": "^3.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "PM\\Framework\\":"src"
+        }
+    },
+    "scripts": {
+        "serve": "php -S localhost:8080 -t public"
+    },
+    "config":{
+        "process-timeout": 0
+    },
+    "description": ""
+}
