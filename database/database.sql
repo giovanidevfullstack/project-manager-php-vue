@@ -5,11 +5,11 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema curso_son_project_manager
+-- Schema pp_pm
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema curso_son_project_manager
+-- Schema pp_pm
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `pp_pm` DEFAULT CHARACTER SET utf8 ;
 USE `pp_pm` ;
