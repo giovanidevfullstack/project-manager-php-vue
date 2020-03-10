@@ -1,7 +1,7 @@
 <?php
 
 $router->add('GET', '/', function () {
-    return 'homepage';
+    return file_get_contents(__DIR__ . '/../../template/index.html');
 });
 
 $router->add('GET', '/users', '\App\Controllers\UsersController::index');
